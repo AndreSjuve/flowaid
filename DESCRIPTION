@@ -1,13 +1,14 @@
 Package: flowaid
-Title: What the Package Does (One Line, Title Case)
+Title: Help project workflow
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "André",
+           family = "Wattø Sjuve",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "andre.sjuve@gmail.com")
+Description: Flowaid contains a set of functions I have created during my
+    PhD to better my workflow on projects. The functions are mainly focused on 
+    optimising my preferred workflow.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
@@ -26,4 +27,5 @@ Imports:
     bookdown,
     xfun,
     stringr,
-    dplyr
+    dplyr,
+    rlang
