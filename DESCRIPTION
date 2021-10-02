@@ -28,4 +28,5 @@ Imports:
     xfun,
     stringr,
     dplyr,
-    rlang
+    rlang,
+    usethis
