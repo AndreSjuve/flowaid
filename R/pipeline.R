@@ -36,7 +36,7 @@ addto_pipeline <- function(name = NULL, ...) {
     fs::dir_create(pipeline)
   }
 
-  assign(paste0("path_", name), pipeline, envir = parent.frame())
+  assign("path_pipeline", pipeline, envir = parent.frame())
 
   message("Script folder created and path added to environment")
 
