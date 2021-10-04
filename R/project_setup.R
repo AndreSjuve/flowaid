@@ -91,7 +91,9 @@ start_project <- function(dir = NULL, proj_name = NULL, ...) {
 
   write_rsetup(proj_folder = proj_folder, packages = ...)
 
+  # Step 4: Write _render.R file
 
+  write_rrender(proj_folder = proj_folder)
 }
 
 
@@ -173,5 +175,59 @@ write_rsetup <- function(proj_folder = NULL, packages = NULL, ...) {
   usethis::ui_done("~setup.R written")
 
 }
+
+# write_rrender() --------------------------------------------------------------
+
+#' Write R script that renders the project paper
+#'
+#' \code{write_rrender()} creates an .R file and saves it in R/ folder of the
+#' current project. It contains code to render the .Rmd file index.Rmd that
+#' should be located in the subfolder manuscript.
+#'
+#' @param proj_folder Path .Rproj folder
+#' @param ... Other arguments
+#'
+#' @return Message when file is written
+#' @export
+
+write_rrender <- function(proj_folder = NULL, ...) {
+
+  if (is.null(proj_folder)) {
+    usethis::ui_stop("Can't create setup file without project directory")
+  }
+
+  lines <-
+    "
+#_______________________________________________________________________________
+# Render paper
+# André Wattø Sjuve, andre.sjuve@nhh.no
+# Norwegian School of Economics
+# Created: '04 oktober, 2021'
+
+# Description: This script renders the project paper
+#_______________________________________________________________________________
+
+index_dir <- fs::dir_ls(regexp = 'manuscript', type = 'directory')
+
+xfun::in_dir(index_dir,
+             bookdown::render_book(
+               input         = 'index.Rmd',
+               output_format = 'bookdown::pdf_book',
+               output_dir    = '.')
+)
+
+#_______________________________________________________________________________
+# Copyright Andre W. Sjuve 2021 ----
+  "
+
+  out_path <- fs::path(proj_folder, "R", "_render", ext = "R")
+
+  writeLines(lines, con = out_path)
+
+  usethis::ui_done("_render.R written")
+
+
+}
+
 
 
