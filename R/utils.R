@@ -29,7 +29,7 @@ find_file <- function(name, ext = "fst", file_num = 1) {
   path <- fs::path_filter(
     fs::dir_ls(
       type    = "file",
-      recurse = T,
+      recurse = TRUE,
       glob    = paste0("*.", ext)
     ),
     regexp = name)
@@ -42,11 +42,16 @@ find_file <- function(name, ext = "fst", file_num = 1) {
 
     out_path <- path[file_num]
 
-    cat(
-      glue::glue_col(
-        "{red Warning:}
-    More than one file matched the name {name}.
-    Returning match nr {file_num}: {out_path}"), sep = "\n")
+    msg <- paste0(
+      "Oops: More than one file matched ",
+      name,
+      ". Returning match nr ",
+      file_num,
+      ": ",
+      out_path, "\n"
+      )
+
+    usethis::ui_info(msg)
 
     cat(
       crayon::bold(
